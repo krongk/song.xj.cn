@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>宋学江的个人主页</title>
+    <link rel="stylesheet" href="assets/idangerous.swiper.css">
+    <link rel="stylesheet" href="assets/style.css">
+  </head>
+  <body>
+    <div class="preloader">
+      在很久很久以前...
+    </div>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide red-slide">
+          <div class="title">
+            <a href="http://www.zuyu114.com" target="_blank">足浴114</a>
+          </div>
+          <div class="content">
+          上线时间： 2015-01-01
+          </div>
+        </div>
+        <div class="swiper-slide red-slide">
+          <div class="title">
+            <a href="http://www.mshipei.com" target="_blank">摩适配</a>
+          </div>
+          <div class="content">
+          上线时间： 2014-10-01
+          </div>
+        </div>
+        <div class="swiper-slide red-slide">
+          <div class="title">
+            <a href="http://www.wedxt.com" target="_blank">维斗喜帖</a>
+          </div>
+          <div class="content">
+          上线时间： 2014-06-08
+          </div>
+        </div>
+        <div class="swiper-slide red-slide">
+          <div class="title">
+            RainCMS开源系统
+          </div>
+        </div>
+        <div class="swiper-slide blue-slide">
+          <div class="title">
+            互联网从业10＋年，互联网持续创业者！
+          </div>
+        </div>
+        <div class="swiper-slide orange-slide">
+          <div class="title">
+            联系方式
+          </div>
+          <div class="content">
+            <p><strong>电话：</strong>180-8081-0818</p>
+            <p><strong>邮箱：</strong>me@song.xj.cn</p>
+            <p><strong>微信：</strong>xuejiang_song</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/jquery-1.10.1.min.js"></script>
+    <script src="assets/idangerous.swiper.js"></script>
+    <script>
+      var holdPosition = 0;
+      var mySwiper = new Swiper('.swiper-container',{
+        slidesPerView:'auto',
+        mode:'vertical',
+        watchActiveIndex: true,
+        onTouchStart: function() {
+          holdPosition = 0;
+        },
+        onResistanceBefore: function(s, pos){
+          holdPosition = pos;
+        },
+        onTouchEnd: function(){
+          if (holdPosition>100) {
+            // Hold Swiper in required position
+            mySwiper.setWrapperTranslate(0,100,0)
+
+            //Dissalow futher interactions
+            mySwiper.params.onlyExternal=true
+
+            //Show loader
+            $('.preloader').addClass('visible');
+
+            //Load slides
+            loadNewSlides();
+          }
+        }
+      })
+      var slideNumber = 0;
+      function loadNewSlides() {
+        setTimeout(function(){
+          //Prepend new slide
+          var colors = ['blue','green','orange','pink'];
+          var color = colors[Math.floor(Math.random()*colors.length)];
+          mySwiper.prependSlide('<div class="title">更多精彩，敬请期待!</div>', 'swiper-slide '+color+'-slide')
+
+          //Release interactions and set wrapper
+          mySwiper.setWrapperTranslate(0,0,0)
+          mySwiper.params.onlyExternal=false;
+
+          //Update active slide
+          mySwiper.updateActiveSlide(0)
+
+          //Hide loader
+          $('.preloader').removeClass('visible')
+        },1000)
+
+        slideNumber++;
+      }
+      </script>
+  </body>
+</html>
